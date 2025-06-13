@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>6.3 million animals enter animal shelter nationwide in the United States every year. Approximately 920,000
+    shelter animals are euthanized.
+</p>
+<p>
+    Pets are looking for their forever home. If you are looking for a companion to bring home, head over to our search
+    page.
+</p>
+<hr>
+<h3>Fun Animal Fact</h3>
+<div id="animalFacts"></div>
+<script src="static/main.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $('.nav-link').removeClass('active').removeAttr('aria-current');
+        $('#homeNav').addClass('active').attr('aria-current', 'page');
+    });
+</script>
+
+{% endblock content %}

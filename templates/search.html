@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+    <div class="searchCard">
+        <form method="POST" action="/search">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search</legend>
+                <div class="form-group">
+                    {{ form.breed.label(class="form-control-label")}}
+                    {{ form.breed(class="form-control-label form-control-md")}}
+                    <br>
+                    {{ form.zip.label(class="form-control-label")}}
+                    {{ form.zip(class="form-control-label form-control-md")}}
+                    <br>
+                    {{ form.gender.label(class="form-control-label")}}
+                    {{ form.gender(class="form-control-label form-control-md")}}
+                    <br>
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+    {% if error_msg %}
+    <p id="error">ERROR: {{ error_msg }}</p>
+    {% endif %}
+    {% if animals is not string %}
+    {% if animals %}
+    <h2>List of animals</h2>
+    <ul>
+        {% for animal in animals %}
+        <div class="searchOutput">
+            <li>
+                {% if animal['photos'][0] %}
+                <img src="{{ animal['photos'][0]['small'] }}" width="100px">
+                {% endif %}
+                <br>
+                <strong>Name:</strong> {{ animal['name'] }}
+                <br>
+                <strong>Description:</strong> {{ animal['description'] }}
+                <br>
+                <strong>Age:</strong> {{ animal['age'] }}
+                <br>
+                <strong>Size:</strong> {{ animal['size'] }}
+                <br>
+                <strong>Breed:</strong> {{ animal['breeds']['primary'] }}: {{animal['breeds']['secondary']}}
+                <br>
+                <strong>Spayed / Neutered:</strong> {{ animal['attributes']['spayed_neutered']}}
+                <br>
+                <strong>Special Needs:</strong> {{ animal['attributes']['special_needs']}}
+                <br>
+                <strong>Location:</strong> {{ animal['contact']['address']['city']}}, {{
+                animal['contact']['address']['state']}},
+                {{animal['contact']['address']['postcode']}}
+
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No animals found, search again.</p>
+    {% endif %}
+    {% endif %}
+
+
+</div>
+{% endblock content %}
